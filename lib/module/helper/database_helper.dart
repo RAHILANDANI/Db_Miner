@@ -58,11 +58,11 @@ class DataBaseHelper {
   //   await db!.rawUpdate(sql, values);
   // }
 
-  Future<void> deleteData({required int id}) async {
+  Future<void> deleteData({required String link}) async {
     db = await initDB();
 
-    String sql = "DELETE FROM student WHERE id = ?";
-    List values = [id];
+    String sql = "DELETE FROM favourite WHERE link = ?";
+    List values = [link];
 
     await db!.rawDelete(sql, values);
   }
