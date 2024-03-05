@@ -5,6 +5,13 @@ import 'package:get/get.dart';
 class FavouriteController extends GetxController {
   List<FavouriteModel> fetchdata = [];
 
+  @override
+  void onInit() async {
+    // TODO: implement onInit
+    super.onInit();
+    getdata();
+  }
+
   void getdata() async {
     List data = await DataBaseHelper.databaseHelper.fetchAllData();
 

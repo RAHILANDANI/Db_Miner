@@ -9,10 +9,7 @@ class SplashScreenController extends GetxController {
     super.onInit();
     DataBaseHelper.databaseHelper.initDB();
     getdata().then(
-      (value) => Timer(
-        const Duration(seconds: 1),
-        () => Get.offAllNamed('/'),
-      ),
+      (value) => Get.offAllNamed('/'),
     );
   }
 

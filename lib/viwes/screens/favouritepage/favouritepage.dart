@@ -14,16 +14,19 @@ class _FavouriteState extends State<Favourite> {
   @override
   Widget build(BuildContext context) {
     FavouriteController favouriteController = Get.put(FavouriteController());
-    favouriteController.getdata();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Text("Favourite Page"),
       ),
-      body: GetBuilder<FavouriteController>(builder: (controller) {
-        return SingleChildScrollView(
-          child: Column(
-            children: favouriteController.fetchdata
-                .map((e) => Padding(
+      body: GetBuilder<FavouriteController>(
+        builder: (controller) {
+          return SingleChildScrollView(
+            child: Column(
+              children: favouriteController.fetchdata
+                  .map(
+                    (e) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
@@ -70,6 +73,14 @@ class _FavouriteState extends State<Favourite> {
                                     onPressed: () {
                                       DataBaseHelper.databaseHelper
                                           .deleteData(link: e.Link);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.green,
+                                          content: Text("SuccesFully Deleted"),
+                                        ),
+                                      );
+                                      setState(() {});
                                     },
                                     icon: Icon(Icons.delete,
                                         color: Colors.white, size: 28),
@@ -88,11 +99,13 @@ class _FavouriteState extends State<Favourite> {
                           ),
                         ),
                       ),
-                    ))
-                .toList(),
-          ),
-        );
-      }),
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        },
+      ),
     );
   }
 }
