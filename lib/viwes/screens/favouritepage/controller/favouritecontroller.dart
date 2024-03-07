@@ -19,5 +19,11 @@ class FavouriteController extends GetxController {
         .map((e) => FavouriteModel(
             Name: e['name'], Description: e['description'], Link: e['link']))
         .toList();
+    update();
+  }
+
+  deleteData({required String link}) {
+    DataBaseHelper.databaseHelper.deleteData(link: link);
+    getdata();
   }
 }

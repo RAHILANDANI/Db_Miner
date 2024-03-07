@@ -71,8 +71,7 @@ class _FavouriteState extends State<Favourite> {
                                 children: [
                                   IconButton(
                                     onPressed: () {
-                                      DataBaseHelper.databaseHelper
-                                          .deleteData(link: e.Link);
+                                      controller.deleteData(link: e.Link);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -80,7 +79,6 @@ class _FavouriteState extends State<Favourite> {
                                           content: Text("SuccesFully Deleted"),
                                         ),
                                       );
-                                      setState(() {});
                                     },
                                     icon: Icon(Icons.delete,
                                         color: Colors.white, size: 28),
