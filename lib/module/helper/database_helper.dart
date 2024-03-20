@@ -17,7 +17,7 @@ class DataBaseHelper {
     db = await openDatabase(databasePath, version: 1,
         onCreate: (Database db, _) async {
       String sql =
-          "CREATE TABLE IF NOT EXISTS favourite (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, link TEXT);";
+          "CREATE TABLE IF NOT EXISTS favourite (id INTEGER PRIMARY KEY AUTOINCREMENT, quote TEXT, auther TEXT);";
 
       await db.execute(sql);
     });
@@ -26,11 +26,11 @@ class DataBaseHelper {
   }
 
   Future<void> insertfavourite(
-      String name, String description, String link) async {
+      String name, String description) async {
     db = await initDB();
 
-    String sql = "INSERT INTO favourite(name,description,link) VALUES(?,?,?)";
-    List args = [name, description, link];
+    String sql = "INSERT INTO favourite(name,description) VALUES(?,?)";
+    List args = [name, description];
 
     await db!.rawInsert(sql, args);
   }
@@ -48,7 +48,7 @@ class DataBaseHelper {
   Future<void> deleteData({required String link}) async {
     db = await initDB();
 
-    String sql = "DELETE FROM favourite WHERE link = ?";
+    String sql = "DELETE FROM favourite WHERE description = ?";
     List values = [link];
 
     await db!.rawDelete(sql, values);

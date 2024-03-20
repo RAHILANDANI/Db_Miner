@@ -1,14 +1,10 @@
 class ApiModel {
-  String Name;
-  String Description;
-  bool HTTPS;
-  String Link;
-  String Categories;
+  String Auther;
+  String Content;
+
 
   ApiModel(
-      {required this.Name,
-      required this.Description,
-      required this.HTTPS,
-      required this.Link,
-      required this.Categories});
+      {required this.Auther,
+      required this.Content,
+     });
 }

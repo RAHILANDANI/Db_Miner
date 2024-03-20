@@ -17,7 +17,7 @@ class FavouriteController extends GetxController {
 
     fetchdata = data
         .map((e) => FavouriteModel(
-            Name: e['name'], Description: e['description'], Link: e['link']))
+            Name: e['name'], Description: e['description']))
         .toList();
     update();
   }

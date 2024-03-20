@@ -10,7 +10,7 @@ class APIHelper {
   List<ApiModel> apidata = [];
 
   Future<List<ApiModel>?> fetchedApiData() async {
-    String api = "https://api.publicapis.org/entries";
+    String api = "https://api.quotable.io/quotes?page=1";
 
     http.Response response = await http.get(Uri.parse(api));
 
@@ -18,16 +18,14 @@ class APIHelper {
       String data = response.body;
 
       Map decodedData = jsonDecode(data);
-      List apiFetched = decodedData['entries'];
+      List apiFetched = decodedData['results'];
 
       print(apiFetched);
       apidata = apiFetched
           .map((e) => ApiModel(
-              Name: e['API'],
-              Description: e['Description'],
-              HTTPS: e['HTTPS'],
-              Link: e['Link'],
-              Categories: e['Category']))
+              Auther: e['author'],
+              Content: e['content'],
+             ))
           .toList();
       return apidata;
     }

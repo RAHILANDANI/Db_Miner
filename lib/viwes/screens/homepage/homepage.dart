@@ -1,6 +1,7 @@
 import 'package:adv_testsurpriser/module/helper/api_helper.dart';
 import 'package:adv_testsurpriser/module/helper/database_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,12 +14,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    bool isfavourite = false;
     return Scaffold(
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Links"),
+            Text("Quotes"),
             IconButton(
               onPressed: () {
                 Get.toNamed('favourite');
@@ -28,6 +30,18 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.changeTheme(
+                  Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
+            },
+            icon: Icon(Get.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+          ),
+          SizedBox(
+            width: 3,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -56,27 +70,12 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              e.Name,
+                              e.Auther,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 22),
                             ),
                             Text(
-                              "Description - ${e.Description}",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            Text(
-                              "Https(ISSECURE) - ${e.HTTPS}",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            Text(
-                              "Link - ${e.Link}",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            Text(
-                              "Categories - ${e.Categories}",
+                              "Quote - ${e.Content}",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12),
                             ),
@@ -89,11 +88,15 @@ class _HomePageState extends State<HomePage> {
                                 IconButton(
                                   onPressed: () {
                                     DataBaseHelper.databaseHelper
-                                        .insertfavourite(
-                                            e.Name, e.Description, e.Link);
+                                        .insertfavourite(e.Auther, e.Content)
+                                        .then((value) => isfavourite = true);
+                                    setState(() {});
                                   },
                                   icon: Icon(Icons.favorite,
-                                      color: Colors.white, size: 28),
+                                      color: isfavourite == true
+                                          ? Colors.red
+                                          : Colors.white,
+                                      size: 28),
                                 ),
                                 SizedBox(
                                   width: 3,
